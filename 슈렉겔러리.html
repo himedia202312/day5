@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:500px;
+            height:400px;
+            background: yellow;
+            margin: auto;
+        }
+        #frame{
+            width:100%;
+            height:340px;
+            background-color:aquamarine;
+            /*넘쳐나는 컨텐츠는 숨기자*/
+            overflow: hidden;
+        }
+        #box{
+            width:3500px;
+            height:340px;
+            background-color: blueviolet;
+            position: relative;
+        }
+        #navi{
+            font-size:40px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        let box;
+        let a=0.1;
+        let targetX=0; //box가 도착위치 
+        let n=0;
+
+        //box라는 div의 left값을 감속도 공식으로 변경해보자
+        // box위치 = box현위치 + a*(목표지점-box현위치)
+        function move(){
+            box.style.left = parseFloat(box.style.left)+a*(targetX - parseFloat(box.style.left))+"px";
+        }
+
+        function init(){
+            //이미지 7개를 생성하되, 0픽실부터 500씩
+            //box 라는 div에 자식으로 추가
+            for(let i=0;i<7;i++){ 
+                let img=document.createElement("img");
+                img.src="../images/Shrek/img"+i+".jpg";
+                img.style.width=500+"px";
+                img.style.height=340+"px";
+                img.style.position="absolute";
+                img.style.left=(i*500)+"px";
+
+                //생성된 이미지를 box div에 부착 
+                box=document.getElementById("box");
+                box.style.left=0+"px";
+                box.appendChild(img);
+            }
+
+            //7개의 도트 생성 
+            for(let i=0;i<7;i++){
+                let span=document.createElement("span");
+                span.innerText="●";
+                span.style.cursor="pointer";
+                span.addEventListener("click", function(){
+                    console.log(i, "번째 버튼 클릭");
+                    //i를 이용하여 targetX값을 조정해보세요 
+                    targetX=i*-500;
+                });
+                document.getElementById("navi").appendChild(span);
+            }
+        }
+
+        //슈렉겔러리의 targetX값을 키보드를 통해 제어해
+        //보자 (단 키보드의 좌,우 키만 적용)
+        function control(){
+            //alert(event.keyCode);
+            if(event.keyCode==37){//좌측 방향키라면..
+                if(n>0){
+                    n--;                
+                }
+            }
+            if(event.keyCode==39){//우측 방향키라면..
+                if(n<6){
+                    n++;                
+                }
+            }            
+            targetX = n*-500;
+        }
+
+        addEventListener("load", function(){
+            init();
+
+            //애니메이션 구현을 위해서는 끊임없는 자동호출
+            //이 필요함..
+            setInterval("move()", 10);
+
+        });
+    </script>
+</head>
+<body onKeyDown="control()">
+    <div id="wrapper">
+        <div id="frame">
+            <div id="box"></div>
+        </div>
+        <div id="navi"></div>
+    </div>    
+</body>
+</html>
+
+
+
+

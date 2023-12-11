@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin-top: 100px;
+        }
+        #wrapper{
+            width:600px;
+            height:600px;
+            background-color: yellow;
+            margin: auto;    
+            position: relative;/*자식 때문에..*/        
+        }
+        #frame{
+            width:200px;
+            height:200px;
+            position: absolute;
+            left:200px;
+            top:200px;
+            background-color: aqua;
+            position: relative;/*자식때문에..*/
+        }
+    </style>
+    <script>
+
+        function init(){
+            //테이블을 동적으로 생성하고, 각 셀에 이미지
+            //도 동적으로 생성하여 껴넣자..프로그래밍적으로..
+            let table=document.createElement("table");//<table></table>
+            
+            for(let i=1;i<=3;i++){  //3층 tr
+                let tr=document.createElement("tr"); //<tr></tr>
+
+                for(let a=1;a<=3;a++){
+                    let td=document.createElement("td");//<td></td>
+                    td.innerText=i+"층"+a+"호";
+                    tr.appendChild(td);
+                }
+
+                table.appendChild(tr);
+            }
+
+            table.style.border="1px solid red";
+            table.style.width=600+"px";
+            table.style.height=600+"px";
+            table.style.position="absolute";//frame기준으로 
+            table.style.left=-200+"px";
+            table.style.top=-200+"px";
+
+            //frame  div 에 테이블 추가 
+            let frame=document.getElementById("frame");
+            frame.appendChild(table);
+        }
+
+        addEventListener("load", function(){
+            init();
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="frame"></div>
+    </div>    
+</body>
+</html>
+
+
+
+

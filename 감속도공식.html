@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{margin:0px;}
+        #wrapper{
+            width:100%;
+            height:1000px;
+            background: yellow;
+        }
+    </style>
+    <script>
+        let pic;
+        let a=0.1;
+        let targetX=0; //사용자가 제일 마지막에 기록한 x좌표
+        let targetY=0; //사용자가 제일 마지막에 기록한 y좌표
+
+        //마우스의 좌표 구하기 
+        function move(){
+            //console.log("마우스x 좌표:", event.clientX);
+            //console.log("마우스y 좌표:", event.clientY);
+
+            //케릭터의 좌표를 마우스 좌표와 일치시키기 
+            //감속도 공식으로 움직여보기 
+            pic.style.left=parseInt(pic.style.left)+a*(targetX-parseInt(pic.style.left))+"px";
+            pic.style.top=parseInt(pic.style.top)+a*(targetY-parseInt(pic.style.top))+"px";
+            console.log(pic.style.left, pic.style.top);
+        }
+        function getPos(){
+            targetX=event.clientX;
+            targetY=event.clientY;
+        }
+        function init(){
+            pic=document.getElementById("pic");
+            pic.style.position="absolute";
+            pic.style.left=0+"px";
+            pic.style.top=0+"px";
+
+            setInterval("move()", 10);
+        }
+
+        addEventListener("load", function(){
+            init();
+        });
+    </script>
+</head>
+<body onMouseMove="getPos()">
+    <div id="wrapper">    
+        <img id="pic" src="../images/pica.gif">
+    </div>
+</body>
+</html>
+
+
+
+
+

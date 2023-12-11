@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0px;
+        }
+        #wrapper{
+            width:100%;
+            height:1000px;
+            background-image: url(../images/night.jpg);
+            background-size: 100% 1000px;
+        }
+    </style>
+    <script>
+        let img;
+        let a=0.1; //부드러운 정도를 나타냄, 0에 가까울수록
+                        //값이 작을 수록 보폭이 좁아진다..
+        let targetX=500; //반디불의 x목표 지점
+        let targetY=600; //반디불의 y목표 지점
+
+        //목표지점까지, 감속도 공식으로 접근하기 
+        //나위치=현위치+비율계수*(목표지점-현위치)
+        function move(){
+            img.style.left=parseInt(img.style.left)+a*(targetX - parseInt(img.style.left))+"px";
+            img.style.top=parseInt(img.style.top)+a*(targetY - parseInt(img.style.top))+"px";
+        }
+
+        function getPos(){
+            targetX = event.clientX;
+            targetY= event.clientY;
+        }
+
+        //프로그램 시작과 동시에 하고픈 작업이 있다면
+        //여기서 처리한다
+        function init(){
+            img=document.createElement("img");
+            img.src="../images/firefly.png";
+            img.style.position="absolute";
+            img.style.left=0+"px";
+            img.style.top=0+"px";
+
+            img.style.width=40+"px";
+            document.getElementById("wrapper").appendChild(img);
+        }
+
+        addEventListener("load", function(){
+            init();
+            setInterval("move()",10);
+        });
+    </script>
+</head>
+<body onMouseDown="getPos()">
+    <div id="wrapper"></div>        
+</body>
+</html>
+
+
+
+
+
